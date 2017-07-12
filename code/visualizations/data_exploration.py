@@ -103,6 +103,3 @@ def word_clouds():
                 green_func,
                 '../../documents/visuals/img_files/up_arrow.png',
                 '../../documents/visuals/up_days_cloud.png')
-
-
-distribution_props()

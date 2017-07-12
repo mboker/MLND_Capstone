@@ -11,5 +11,3 @@ def do_extract_and_combine():
         data = data.drop('Top'+str(i), axis=1)
 
     data.to_csv('../../data/headlines_combined.csv')
-
-do_extract_and_combine()
