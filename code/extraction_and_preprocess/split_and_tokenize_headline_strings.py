@@ -45,3 +45,5 @@ def do_split():
     data['Combined'] = data.apply(lambda row: _tokenize_word_lists(row['Combined'], words_to_int), axis=1)
 
     data.to_csv('../../data/tokenized_headlines.csv')
+
+do_split()

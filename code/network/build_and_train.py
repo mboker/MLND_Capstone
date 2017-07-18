@@ -18,7 +18,7 @@ dropout_keep_rate = 0.3
 
 data, vocab = builders.get_data_and_vocab(file_path)
 train_x, val_x, test_x, train_y, val_y, test_y = builders.get_data_splits(split_frac, data)
-train_x, val_x, test_x = builders.create_lists_and_filter(train_x, val_x, test_x)
+train_x, val_x, test_x, train_counter = builders.create_lists_and_filter(train_x, val_x, test_x)
 train_batches = builders.get_batches_and_pad(train_x, train_y, batch_size, length)
 val_batches = builders.get_batches_and_pad(val_x, val_y, batch_size, length)
 

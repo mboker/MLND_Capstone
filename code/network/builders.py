@@ -35,7 +35,7 @@ def create_lists_and_filter(train_x, val_x, test_x):
     val_x = [[word for word in words if train_word_counter[word] >= 5] for words in val_x]
     test_x = [[word for word in words if train_word_counter[word] >= 5] for words in test_x]
 
-    return train_x, val_x, test_x
+    return train_x, val_x, test_x, train_word_counter
 
 
 def get_batches_and_pad(headline_strings, labels, batch_size, length):
