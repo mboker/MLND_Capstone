@@ -3,7 +3,7 @@ import pandas as pd
 from collections import Counter
 import math
 import numpy as np
-
+import random
 
 def get_data_and_vocab(file_path):
     data = pd.read_csv(file_path, header=0)
@@ -20,18 +20,25 @@ def get_data_splits(split_frac, data):
     split_idx = int(split_frac*len(labels))
     train_x, train_y = headline_strings[:split_idx], labels[:split_idx]
     test_x, test_y = headline_strings[split_idx:], labels[split_idx:]
-    split_idx = int(split_frac*len(train_x))
-    val_x, val_y = train_x[split_idx:], train_y[split_idx:]
-    train_x, train_y = train_x[:split_idx], train_y[:split_idx]
+    split_idx = int(0.5*len(test_x))
+    val_x, val_y = test_x[:split_idx], test_y[:split_idx]
+    test_x, test_y = test_x[split_idx:], test_y[split_idx:]
     return train_x, val_x, test_x, train_y, val_y, test_y
 
+def subsample(freq, thresh):
+    p = (freq-thresh)/freq - (thresh/freq)**(0.5)
+    if random.random() <= p:
+        return False
+    return True
 
-def create_lists_and_filter(train_x, val_x, test_x):
+def create_lists_and_filter(train_x, val_x, test_x, thresh):
     train_x = [[word for word in words.split()] for words in train_x]
     train_word_counter = Counter()
     for words in train_x:
         train_word_counter.update(words)
-    train_x = [[word for word in words if train_word_counter[word] >= 5] for words in train_x]
+    total_count = sum(train_word_counter.values())
+    train_x = [[word for word in words if train_word_counter[word] >= 5 and
+                subsample(train_word_counter[word]/total_count ,thresh)] for words in train_x]
     val_x = [[word for word in words if train_word_counter[word] >= 5] for words in val_x]
     test_x = [[word for word in words if train_word_counter[word] >= 5] for words in test_x]
 
@@ -39,7 +46,7 @@ def create_lists_and_filter(train_x, val_x, test_x):
 
 
 def get_batches_and_pad(headline_strings, labels, batch_size, length):
-    num_batches = math.ceil(len(headline_strings) // batch_size)
+    num_batches = len(headline_strings) // batch_size
     batches = []
     for batch_num in range(num_batches):
         batch_headlines = headline_strings[batch_num*batch_size: min(len(headline_strings), (batch_num+1)*batch_size)]
