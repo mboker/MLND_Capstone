@@ -91,7 +91,7 @@ def build_lstm_cell(rnn_size, batch_size, output_keep_prob):
     dropout = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=output_keep_prob)
     cell = tf.contrib.rnn.MultiRNNCell([dropout])
 
-    initial_state = cell.zero_state(batch_size, tf.float32)
+    initial_state = cell.random_uniform(batch_size, tf.float32)
     initial_state = tf.identity(initial_state, name='initial_state')
 
     return cell, initial_state
