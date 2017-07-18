@@ -1,10 +1,13 @@
 import tensorflow as tf
 import pandas as pd
 from collections import Counter
-import math
 import numpy as np
 import random
 
+
+# get_data_and_vocab opens the csv file containing our combined and tokenized headline strings
+# it then creates a set of all of the word ids contained in the set
+# it returns the data, along with the vocab set
 def get_data_and_vocab(file_path):
     data = pd.read_csv(file_path, header=0)
     headlines = data['Combined'][:].tolist()
@@ -14,6 +17,9 @@ def get_data_and_vocab(file_path):
     return data, vocab
 
 
+# Splits the data into training, test, and validation sets, split_frac
+# is used to split the training set from data, and the remaining points are
+# split evenly between validation and test
 def get_data_splits(split_frac, data):
     labels = data['Label'][:].tolist()
     headline_strings = data['Combined'][:].tolist()
@@ -25,12 +31,20 @@ def get_data_splits(split_frac, data):
     test_x, test_y = test_x[split_idx:], test_y[split_idx:]
     return train_x, val_x, test_x, train_y, val_y, test_y
 
+
+# subsample uses the subsampling formula from Mikolov, et al to probablistically
+# discard words.  As it is used in the list comprehensions in create_lists_and_filter,
+# if it returns False, the word being subsampled is discarded, otherwise it is included
 def subsample(freq, thresh):
     p = (freq-thresh)/freq - (thresh/freq)**(0.5)
     if random.random() <= p:
         return False
     return True
 
+
+# this method takes the datasets and turns their headline strings into lists of word ids,
+# discarding any words that appear fewer than 5 times throughout the data set, and
+# subsampling all other words
 def create_lists_and_filter(train_x, val_x, test_x, thresh):
     train_x = [[word for word in words.split()] for words in train_x]
     train_word_counter = Counter()
@@ -38,13 +52,17 @@ def create_lists_and_filter(train_x, val_x, test_x, thresh):
         train_word_counter.update(words)
     total_count = sum(train_word_counter.values())
     train_x = [[word for word in words if train_word_counter[word] >= 5 and
-                subsample(train_word_counter[word]/total_count ,thresh)] for words in train_x]
+                subsample(train_word_counter[word]/total_count,thresh)] for words in train_x]
     val_x = [[word for word in words if train_word_counter[word] >= 5] for words in val_x]
     test_x = [[word for word in words if train_word_counter[word] >= 5] for words in test_x]
 
     return train_x, val_x, test_x, train_word_counter
 
 
+# get_batches_and_pad takes in sets of headlines_strings and labels, of equal size,
+# and splits them into batches, each of size batch_size.  Any remaining data points
+# that do not fit into a full batch are discarded.  the headline strings are also
+# padded or truncated to be exactly length words long
 def get_batches_and_pad(headline_strings, labels, batch_size, length):
     num_batches = len(headline_strings) // batch_size
     batches = []

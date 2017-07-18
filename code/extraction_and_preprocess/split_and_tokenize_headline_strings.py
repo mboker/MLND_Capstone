@@ -22,16 +22,26 @@ punc_tokens = {'.': '||period||',
                '\n': '||newline||'}
 
 
+# This takes in a string and replaces all of the punctuation with tokens
+# from punc_tokens.  It also removes any stop words in the string
+# it returns a list of the words in the string
 def _split_remove_stopwords_tokenize_punc(combined_string):
     words = word_tokenize(combined_string)
     words = [word for word in words if word not in stopwords.words('english')]
     return [word.lower() if word not in punc_tokens.keys() else punc_tokens[word] for word in words]
 
 
+# _tokenize_word_lists takes a list of words and a dictionary of words to integer
+# ids, and it returns a string of the ids corresponding to the input list of words,
+# separated by spaces
 def _tokenize_word_lists(row_list, words_to_int):
     return ' '.join([str(words_to_int[word]) for word in row_list])
 
 
+# do_split() opens the csv file containing the combined headline strings,
+# and calls the above two methods on each row to remove stopwords, tokenize punctuation, and
+# then create strings of word ids for the combined headline strings.  it outputs these
+# strings to a new csv file
 def do_split():
     data = pd.read_csv('../data/headlines_combined.csv', header=0)
     data['Combined'] = data.apply(lambda row: _split_remove_stopwords_tokenize_punc(row['Combined']), axis=1)

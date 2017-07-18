@@ -10,6 +10,10 @@ from collections import Counter
 def binary_to_rise_or_fall_string(num):
     return "Rose/Steady" if num == '1' else 'Fell'
 
+
+# This function reads in the data set, and creates a bar chart, showing the
+# number of up days next to the number of down days, for each year represented
+# in the dataset
 def high_level_histogram():
     data = pd.read_csv('../../data/headlines_combined.csv',
                        header=0,
