@@ -33,7 +33,7 @@ def _tokenize_word_lists(row_list, words_to_int):
 
 
 def do_split():
-    data = pd.read_csv('../../data/headlines_combined.csv', header=0)
+    data = pd.read_csv('../data/headlines_combined.csv', header=0)
     data['Combined'] = data.apply(lambda row: _split_remove_stopwords_tokenize_punc(row['Combined']), axis=1)
 
     words = set()
@@ -44,4 +44,4 @@ def do_split():
 
     data['Combined'] = data.apply(lambda row: _tokenize_word_lists(row['Combined'], words_to_int), axis=1)
 
-    data.to_csv('../../data/tokenized_headlines.csv')
+    data.to_csv('../data/tokenized_headlines.csv')
