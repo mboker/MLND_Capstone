@@ -56,7 +56,7 @@ def create_lists_and_filter(train_x, val_x, test_x, thresh):
     val_x = [[word for word in words if train_word_counter[word] >= 5] for words in val_x]
     test_x = [[word for word in words if train_word_counter[word] >= 5] for words in test_x]
 
-    return train_x, val_x, test_x, train_word_counter
+    return train_x, val_x, test_x
 
 
 # get_batches_and_pad takes in sets of headlines_strings and labels, of equal size,
@@ -91,15 +91,17 @@ def build_lstm_cell(rnn_size, batch_size, output_keep_prob):
     dropout = tf.contrib.rnn.DropoutWrapper(lstm, output_keep_prob=output_keep_prob)
     cell = tf.contrib.rnn.MultiRNNCell([dropout])
 
-    initial_state = cell.random_uniform(batch_size, tf.float32)
+    initial_state = cell.zero_state(batch_size, tf.float32)
     initial_state = tf.identity(initial_state, name='initial_state')
 
     return cell, initial_state
 
 
+# This was modified to return the embedding variable, in order to
+# make a tensorboard projection of the embedding
 def build_embedding_layer(input_data, vocab_size, embedding_dim):
-    embedding = tf.Variable(tf.random_uniform((vocab_size, embedding_dim), -1, 1))
-    return tf.nn.embedding_lookup(embedding, input_data)
+    embedding = tf.Variable(tf.random_uniform((vocab_size, embedding_dim), -1, 1), name='embedding')
+    return tf.nn.embedding_lookup(embedding, input_data), embedding
 
 
 def build_rnn(cell, inputs):
