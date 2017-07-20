@@ -23,8 +23,8 @@
       <file leaf-file-name="data_exploration.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/visualizations/data_exploration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+            <state relative-caret-position="108">
+              <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -108,8 +108,8 @@
       <file leaf-file-name="builders.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/network/builders.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="93" column="39" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
+            <state relative-caret-position="612">
+              <caret line="101" column="56" selection-start-line="101" selection-start-column="56" selection-end-line="101" selection-end-column="56" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -145,14 +145,14 @@
         <option value="$PROJECT_DIR$/code/network/build_and_train.py" />
         <option value="$PROJECT_DIR$/code/extraction_and_preprocess/split_and_tokenize_headline_strings.py" />
         <option value="$PROJECT_DIR$/code/extraction_and_preprocess/extract_and_combine.py" />
-        <option value="$PROJECT_DIR$/code/visualizations/data_exploration.py" />
         <option value="$PROJECT_DIR$/code/network/builders.py" />
+        <option value="$PROJECT_DIR$/code/visualizations/data_exploration.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="67" />
-    <option name="y" value="94" />
+    <option name="x" value="740" />
+    <option name="y" value="92" />
     <option name="width" value="1151" />
     <option name="height" value="970" />
   </component>
@@ -586,7 +586,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="94" width="1151" height="970" extended-state="0" />
+    <frame x="740" y="92" width="1151" height="970" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27280626" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -838,8 +838,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/visualizations/data_exploration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        <state relative-caret-position="108">
+          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -848,8 +848,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/network/builders.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="93" column="39" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
+        <state relative-caret-position="612">
+          <caret line="101" column="56" selection-start-line="101" selection-start-column="56" selection-end-line="101" selection-end-column="56" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
