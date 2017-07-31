@@ -22,7 +22,6 @@ def high_level_histogram():
                        parse_dates=['Date'])
     data = data.groupby([data['Date'].dt.year, 'Label']).count().unstack('Label')
     data.plot(kind='bar', mark_right=False)
-    # data['Label'].apply(pd.value_counts).plot(kind='bar')
     plt.legend(['Fell', 'Rose/Steady'])
     plt.title('Up and Down Days by Year')
     plt.xlabel('Year')
@@ -34,6 +33,8 @@ def num_words(string):
     return len(string.split())
 
 
+# length_histogram() creates a histogram of the lengths of the combined
+# headline strings
 def length_histogram():
     data = pd.read_csv('../../data/tokenized_headlines.csv',
                        header=0,
@@ -46,6 +47,9 @@ def length_histogram():
     plt.show()
 
 
+# distribution_props() was used to calculate the mean, standard deviation,
+# 1st quartile, and 3rd quartile values of the lengths of the combined
+# headline strings
 def distribution_props():
     data = pd.read_csv('../../data/tokenized_headlines.csv',
                        header=0,
@@ -57,6 +61,10 @@ def distribution_props():
     print('25%tile: ', data.Combined.quantile(q=0.25))
 
 
+# build_cloud() creates a word cloud out of the supplied text in <text>
+# using <color_func> to create the base color for the cloud, and <img_path>
+# leads to a png file which is used to form the outline of the cloud.
+# the cloud is output to a png file at <output_path>
 def build_cloud(text, color_func, img_path,  output_path):
     mask = np.array(Image.open(img_path))
     stopwords = set(STOPWORDS)
@@ -80,6 +88,11 @@ def build_cloud(text, color_func, img_path,  output_path):
     wc.to_file(output_path)
 
 
+# word_clouds() uses the build_cloud() method to create two word word clouds:
+# 1 for days where the DJIA rose or stayed the same, and 1 for days where the
+# DJIA fell.  It uses a png of an arrow pointing up, with a green color function
+# for the days where the DJIA rose/stayed, and it uses a png of an arrow pointing
+# down with a red color function for the days where the DJIA fell
 def word_clouds():
     data = pd.read_csv('../../data/headlines_combined.csv',
                        header=0,

@@ -1,3 +1,6 @@
+#! This code is not used for my project.  I wrote it for testing, and copied it into the jupyter notebook which
+# has been submitted
+
 import tensorflow as tf
 import builders
 import pandas as pd
@@ -7,7 +10,7 @@ file_path = '../../data/tokenized_headlines.csv'
 #string creation and batch hyperparameters
 split_frac = 0.9
 batch_size = 179
-length = 400
+length = 300
 #network hyperparameters
 num_epochs = 200
 rnn_size = 256
@@ -18,7 +21,7 @@ dropout_keep_rate = 0.3
 
 data, vocab = builders.get_data_and_vocab(file_path)
 train_x, val_x, test_x, train_y, val_y, test_y = builders.get_data_splits(split_frac, data)
-train_x, val_x, test_x, train_counter = builders.create_lists_and_filter(train_x, val_x, test_x)
+train_x, val_x, test_x = builders.create_lists_and_filter(train_x, val_x, test_x, 10**-5)
 train_batches = builders.get_batches_and_pad(train_x, train_y, batch_size, length)
 val_batches = builders.get_batches_and_pad(val_x, val_y, batch_size, length)
 
